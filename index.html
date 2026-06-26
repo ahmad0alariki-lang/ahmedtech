@@ -6,88 +6,124 @@
     <title>أحمد تك | Ahmed Tech</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0b0b0b; color: #ffffff; padding: 15px; }
+        body { background-color: #050508; color: #ffffff; padding: 15px; }
         
-        /* الهيدر على طريقة ون كليك باللون البرتقالي والأسود */
+        /* الهيدر المتناسق باللون البرتقالي والأسود */
         header { 
-            background: linear-gradient(90deg, #ff7300, #ff4500); 
+            background: linear-gradient(90deg, #ff7300, #d94000); 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px; border-radius: 12px; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(255, 115, 0, 0.3);
+            padding: 15px; border-radius: 14px; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(255, 115, 0, 0.25);
         }
-        header h1 { color: #ffffff; font-size: 20px; font-weight: bold; }
-        .menu-btn { background: none; border: none; color: #ffffff; font-size: 26px; cursor: pointer; }
+        header h1 { color: #ffffff; font-size: 18px; font-weight: bold; }
+        .menu-btn { background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer; }
+
+        /* شريط البحث مثل ون كليك */
+        .search-container { margin-bottom: 25px; }
+        .search-bar { width: 100%; padding: 14px 20px; background: #111116; border: 1px solid #22222a; border-radius: 25px; color: #fff; font-size: 14px; text-align: center; }
 
         /* القائمة الجانبية */
-        .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #121212; border-left: 1px solid #222; box-shadow: -5px 0 15px rgba(0,0,0,0.7); z-index: 3000; transition: 0.3s; padding: 20px; }
+        .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0c0c12; border-left: 1px solid #1e1e2f; box-shadow: -5px 0 20px rgba(0,0,0,0.8); z-index: 3000; transition: 0.3s; padding: 20px; }
         .sidebar.open { right: 0; }
         .sidebar .close-btn { background: none; border: none; color: #ff5500; font-size: 24px; float: left; cursor: pointer; }
         .sidebar h2 { margin-top: 20px; color: #fff; font-size: 18px; margin-bottom: 30px; border-bottom: 2px solid #ff7300; padding-bottom: 10px; }
         .sidebar-menu { list-style: none; }
         .sidebar-menu li { margin-bottom: 20px; }
-        .sidebar-menu li a { color: #aaaaaa; text-decoration: none; font-size: 15px; display: block; padding: 10px; border-radius: 8px; }
-        .sidebar-menu li a:hover { background: #1a1a1a; color: #ff7300; }
+        .sidebar-menu li a { color: #aaa; text-decoration: none; font-size: 15px; display: block; padding: 10px; border-radius: 8px; }
+        .sidebar-menu li a:hover { background: #161622; color: #ff7300; }
 
         .container { max-width: 800px; margin: 0 auto; }
-        
-        /* أزرار الأقسام الرئيسية كمربعات */
-        .main-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .cat-box { background: #161616; border: 1px solid #262626; padding: 20px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .cat-box.active { border-color: #ff7300; background: linear-gradient(145deg, #161616, #251302); }
-        .cat-box .icon { font-size: 30px; margin-bottom: 8px; display: block; }
-        .cat-box h2 { font-size: 14px; color: #e0e0e0; }
 
-        /* حاويات المنتجات */
-        .section-products { display: none; }
-        .section-products.active { display: block; }
-        .section-title { color: #ff7300; margin-bottom: 15px; font-size: 16px; font-weight: bold; }
+        /* 🌟 محاكاة الكروت الفخمة للأقسام الرئيسية (طراز صورة 1000193328) */
+        .main-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
         
-        /* شبكة الكروت الاحترافية */
+        .cat-box { 
+            position: relative;
+            background: linear-gradient(180deg, #102046 0%, #080f26 60%, #060a1a 100%); 
+            border: 1px solid #192d65; 
+            border-radius: 16px; 
+            overflow: hidden;
+            aspect-ratio: 1.1;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            align-items: center;
+            cursor: pointer; 
+            transition: 0.3s;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+        .cat-box:hover { transform: translateY(-3px); border-color: #ff7300; box-shadow: 0 0 15px rgba(255,115,0,0.2); }
+        
+        /* شريط العنوان السفلي داخل الكرت المماثل لتصميم ون كليك */
+        .cat-box .cat-footer {
+            width: 100%;
+            background: #0d1330;
+            border-top: 1px solid #1a2554;
+            padding: 10px;
+            text-align: center;
+        }
+        .cat-box h2 { font-size: 13px; color: #ffffff; font-weight: bold; }
+        
+        /* الشارة الجانبية البرتقالية الصغيرة على الكرت */
+        .cat-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff7300;
+            color: #fff;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* الرسوميات التعبيرية داخل الكروت كبديل للبوسترات المفقودة */
+        .cat-graphic {
+            font-size: 42px;
+            margin-bottom: 15px;
+            opacity: 0.85;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+        }
+
+        /* حاويات المنتجات الداخلية */
+        .section-products { display: none; margin-top: 10px; }
+        .section-products.active { display: block; }
+        .section-title { color: #ff7300; margin-bottom: 15px; font-size: 15px; font-weight: bold; border-right: 3px solid #ff7300; padding-right: 8px; }
+        
+        /* شبكة المنتجات الداخلية */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 12px; }
         .card { 
-            background: linear-gradient(180deg, #111a2e, #0a0f1d); 
-            border: 1px solid #1e293b; border-radius: 14px; padding: 12px; 
+            background: linear-gradient(180deg, #0d162b, #060a14); 
+            border: 1px solid #172447; border-radius: 14px; padding: 12px; 
             text-align: center; cursor: pointer; transition: 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .card:hover { transform: translateY(-3px); border-color: #ff7300; }
+        .card:hover { border-color: #ff7300; }
         .card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
-        .card h3 { font-size: 12px; color: #ffffff; font-weight: 600; line-height: 1.4; }
+        .card h3 { font-size: 12px; color: #ffffff; font-weight: 600; }
 
-        /* نافذة الطلب المنبثقة (طراز صورة 3) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 15px; }
-        .modal.open { display: flex; }
-        .modal-content { background: #121212; border: 1px solid #262626; padding: 20px; border-radius: 20px; width: 100%; max-width: 400px; position: relative; text-align: center; }
-        
+        /* نافذة الطلب المنبثقة الطراز الأسود والبرتقالي */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 4000; justify-content: center; align-items: center; padding: 15px; }
+        .modal-content { background: #101014; border: 1px solid #222; padding: 22px; border-radius: 20px; width: 100%; max-width: 390px; text-align: center; }
         .modal-header-title { font-size: 16px; color: #fff; margin-bottom: 15px; font-weight: bold; }
-        .price-tag { background: #ff7300; color: #fff; padding: 6px 15px; border-radius: 20px; display: inline-block; font-weight: bold; font-size: 15px; margin-bottom: 20px; }
-        
-        .modal-field { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; color: #aaa; }
+        .price-tag { background: #ff7300; color: #fff; padding: 6px 18px; border-radius: 20px; display: inline-block; font-weight: bold; font-size: 15px; margin-bottom: 20px; }
+        .modal-field { background: #16161c; border: 1px solid #252530; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; color: #aaa; }
         .modal-field span.val { color: #fff; font-weight: bold; }
-        
-        .id-input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #333; background: #1a1a1a; color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 14px; }
+        .id-input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #252530; background: #16161c; color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 14px; }
         .id-input:focus { border-color: #ff7300; outline: none; }
-        
         .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .btn-buy { background: #ff7300; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; }
         .btn-cancel { background: none; border: 1px solid #ff4500; color: #ff4500; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; }
 
-        /* نافذة شحن الرصيد */
-        .wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .wallet-item { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 8px; font-size: 13px; cursor: pointer; }
-        .wallet-item:hover { border-color: #ff7300; }
-
-        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #222; color: #555; font-size: 11px; }
+        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #111; color: #444; font-size: 11px; }
     </style>
 </head>
 <body>
 
-<!-- القائمة الجانبية -->
 <div id="mySidebar" class="sidebar">
     <button class="close-btn" onclick="toggleSidebar()">&times;</button>
     <h2>أحمد تك للشحن</h2>
     <ul class="sidebar-menu">
-        <li><a href="#" onclick="openWalletModal()">💰 إضافة رصيد بالعملة اليمنية</a></li>
+        <li><a href="#" onclick="alert('تواصل عبر الواتساب لتغذية حسابك يدويًا')">💰 إضافة رصيد بالعملة اليمنية</a></li>
         <li><a href="https://wa.me/967770000000" target="_blank">📞 الدعم الفني المباشر</a></li>
     </ul>
 </div>
@@ -99,93 +135,95 @@
 
 <div class="container">
     
-    <!-- التبديل بين الأقسام -->
+    <!-- خانة البحث المتناسقة -->
+    <div class="search-container">
+        <input type="text" class="search-bar" placeholder="بحث...">
+    </div>
+
+    <!-- 🌟 واجهة الأقسام المطابقة لستايل ون كليك الفخم 🌟 -->
     <div class="main-categories">
-        <div id="cat-games" class="cat-box active" onclick="showSection('games')">
-            <span class="icon">🎮</span>
-            <h2>قسم الألعاب والشحن</h2>
+        <div class="cat-box" onclick="showSection('games')">
+            <div class="cat-badge">الألعاب</div>
+            <div class="cat-graphic">🎮</div>
+            <div class="cat-footer">
+                <h2>قسم الألعاب</h2>
+            </div>
         </div>
-        <div id="cat-chat" class="cat-box" onclick="showSection('chat')">
-            <span class="icon">💬</span>
-            <h2>برامج الصوت والدردشة</h2>
+        
+        <div class="cat-box" onclick="showSection('chat')">
+            <div class="cat-badge">تطبيقات الشات</div>
+            <div class="cat-graphic">📱</div>
+            <div class="cat-footer">
+                <h2>تطبيقات الشات</h2>
+            </div>
+        </div>
+
+        <div class="cat-box" onclick="alert('قريباً...')">
+            <div class="cat-badge">البطاقات</div>
+            <div class="cat-graphic">💳</div>
+            <div class="cat-footer">
+                <h2>البطاقات الإلكترونية</h2>
+            </div>
+        </div>
+
+        <div class="cat-box" onclick="alert('قريباً...')">
+            <div class="cat-badge">العملات</div>
+            <div class="cat-graphic">🪙</div>
+            <div class="cat-footer">
+                <h2>العملات الرقمية</h2>
+            </div>
         </div>
     </div>
 
-    <!-- قسم الألعاب -->
-    <div id="games-section" class="section-products active">
-        <div class="section-title">🎮 شحن الألعاب العالمية</div>
+    <!-- المنتجات الداخلية للقسم المحدد -->
+    <div id="games-section" class="section-products">
+        <div class="section-title">شحن الألعاب العالمية</div>
         <div class="grid">
-            <div class="card" onclick="openOrderModal('ببجي موبايل العالمي', '100000 ريال يمني', '60 شدة')">
+            <div class="card" onclick="openOrderModal('ببجي موبايل العالمي', '1000 ريال يمني', '60 شدة')">
                 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150&auto=format&fit=crop&q=60" alt="PUBG">
-                <h3>ببجي موبايل (60 شدة)</h3>
+                <h3>ببجي موبايل</h3>
             </div>
-            <div class="card" onclick="openOrderModal('فري فاير', '90000 ريال يمني', '100 جوهرة')">
+            <div class="card" onclick="openOrderModal('فري فاير الدولي', '900 ريال يمني', '100 جوهرة')">
                 <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=150&auto=format&fit=crop&q=60" alt="Free Fire">
-                <h3>فري فاير (100 جوهرة)</h3>
-            </div>
-            <div class="card" onclick="openOrderModal('كلاش اوف كلانس', '150000 ريال يمني', 'تعبئة ذهبية')">
-                <img src="https://images.unsplash.com/photo-1612287230202-1bf1d85d1bdf?w=150&auto=format&fit=crop&q=60" alt="Clash">
-                <h3>كلاش اوف كلانس</h3>
+                <h3>فري فاير</h3>
             </div>
         </div>
     </div>
 
-    <!-- قسم الدردشات -->
     <div id="chat-section" class="section-products">
-        <div class="section-title">💬 شحن تطبيقات الدردشة والصوت</div>
+        <div class="section-title">شحن تطبيقات الدردشة والصوت</div>
         <div class="grid">
             <div class="card" onclick="openOrderModal('يوهو واكا - Yoho Waka', '589.77 ريال يمني', '10000 كوينز')">
                 <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=150&auto=format&fit=crop&q=60" alt="Yoho">
-                <h3>يوهو واكا - Yoho Waka</h3>
+                <h3>يوهو واكا</h3>
             </div>
-            <div class="card" onclick="openOrderModal('تيك توك - TikTok', '120000 ريال يمني', '100 عملة')">
+            <div class="card" onclick="openOrderModal('تيك توك - TikTok', '1200 ريال يمني', '100 عملة')">
                 <img src="https://images.unsplash.com/photo-1598128558393-70ff21433be0?w=150&auto=format&fit=crop&q=60" alt="TikTok">
-                <h3>تيك توك - TikTok</h3>
-            </div>
-            <div class="card" onclick="openOrderModal('لايكي - Likee', '85000 ريال يمني', '50 ماسة')">
-                <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd6a?w=150&auto=format&fit=crop&q=60" alt="Likee">
-                <h3>لايكي - Likee</h3>
+                <h3>تيك توك</h3>
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- نافذة الشراء المنبثقة (طراز الصورة 3) -->
+<!-- نافذة الشراء المنبثقة -->
 <div id="orderModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header-title" id="m-title">يوهو واكا - Yoho Waka</div>
-        <div class="price-tag" id="m-price">589.77 ر.ي</div>
-        
+        <div class="modal-header-title" id="m-title">-</div>
+        <div class="price-tag" id="m-price">-</div>
         <div class="modal-field">
             <span>العدد</span>
-            <span class="val" id="m-count">10000</span>
+            <span class="val" id="m-count">-</span>
         </div>
         <div class="modal-field">
             <span>الإجمالي</span>
-            <span class="val" id="m-total">589.77 ر.ي</span>
+            <span class="val" id="m-total">-</span>
         </div>
-        
         <input type="text" id="m-userid" class="id-input" placeholder="ايدي المستخدم">
-        
         <div class="modal-actions">
             <button class="btn-buy" onclick="submitOrder()">شراء</button>
             <button class="btn-cancel" onclick="closeOrderModal()">إلغاء</button>
         </div>
-    </div>
-</div>
-
-<!-- نافذة شحن الرصيد الجانبية -->
-<div id="walletModal" class="modal">
-    <div class="modal-content">
-        <h3 style="color:#ff7300; margin-bottom:15px;">💰 شحن الرصيد بالمحافظ اليمنية</h3>
-        <div class="wallet-grid">
-            <div class="wallet-item" onclick="alert('سيتم توجيهك للواتساب لتأكيد الكريمي')">🏦 كريمي</div>
-            <div class="wallet-item" onclick="alert('سيتم توجيهك للواتساب لتأكيد جيب')">📱 جيب</div>
-            <div class="wallet-item" onclick="alert('سيتم توجيهك للواتساب لتأكيد ون كاش')">💳 ون كاش</div>
-            <div class="wallet-item" onclick="alert('سيتم توجيهك للواتساب لتأكيد الحوالة')">📦 حوالات محلية</div>
-        </div>
-        <button class="btn-cancel" style="width:100%; margin-top:15px;" onclick="document.getElementById('walletModal').style.display='none'">إغلاق</button>
     </div>
 </div>
 
@@ -194,31 +232,23 @@
 </footer>
 
 <script>
-    var currentProduct = "";
-    var currentPrice = "";
-
-    function toggleSidebar() {
-        document.getElementById("mySidebar").classList.toggle("open");
-    }
-
+    var currentProduct = ""; var currentPrice = "";
+    function toggleSidebar() { document.getElementById("mySidebar").classList.toggle("open"); }
+    
     function showSection(sectionId) {
         document.getElementById("games-section").classList.remove("active");
         document.getElementById("chat-section").classList.remove("active");
-        document.getElementById("cat-games").classList.remove("active");
-        document.getElementById("cat-chat").classList.remove("active");
-        
         if(sectionId === 'games') {
             document.getElementById("games-section").classList.add("active");
-            document.getElementById("cat-games").classList.add("active");
         } else {
             document.getElementById("chat-section").classList.add("active");
-            document.getElementById("cat-chat").classList.add("active");
         }
+        // تحريك الشاشة لأسفل المنتجات تلقائياً لتسهيل الرؤية
+        window.scrollTo({top: 400, behavior: 'smooth'});
     }
 
     function openOrderModal(prodName, price, count) {
-        currentProduct = prodName;
-        currentPrice = price;
+        currentProduct = prodName; currentPrice = price;
         document.getElementById("m-title").innerText = prodName;
         document.getElementById("m-price").innerText = price;
         document.getElementById("m-count").innerText = count;
@@ -227,26 +257,13 @@
         document.getElementById("orderModal").style.display = "flex";
     }
 
-    function closeOrderModal() {
-        document.getElementById("orderModal").style.display = "none";
-    }
-
-    function openWalletModal() {
-        toggleSidebar();
-        document.getElementById("walletModal").style.display = "flex";
-    }
+    function closeOrderModal() { document.getElementById("orderModal").style.display = "none"; }
 
     function submitOrder() {
         var uid = document.getElementById("m-userid").value.trim();
-        if(uid === "") {
-            alert("يرجى كتابة ايدي المستخدم أولاً!");
-            return;
-        }
-        var myNumber = "967770000000"; // ضع رقم واتساب الخاص بك هنا
-        var msg = "طلب شحن جديد من الموقع:\n\n" +
-                  "📌 التطبيق: " + currentProduct + "\n" +
-                  "💰 السعر: " + currentPrice + "\n" +
-                  "🆔 الأيدي: " + uid;
+        if(uid === "") { alert("يرجى كتابة ايدي المستخدم أولاً!"); return; }
+        var myNumber = "967770000000"; // ضع رقمك هنا
+        var msg = "طلب شحن جديد من الموقع:\n\n📌 التطبيق: " + currentProduct + "\n💰 السعر: " + currentPrice + "\n🆔 الأيدي: " + uid;
         window.open("https://wa.me/" + myNumber + "?text=" + encodeURIComponent(msg), '_blank');
         closeOrderModal();
     }
