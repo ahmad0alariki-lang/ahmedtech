@@ -3,75 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحمد تك | لشحن عملات برامج الدردشة</title>
+    <title>أحمد تك | منصة الشحن المتكاملة</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0b0f19; color: #ffffff; padding: 20px; }
-        header { text-align: center; padding: 30px 0; border-bottom: 1px solid #1e293b; }
-        header h1 { color: #38bdf8; font-size: 28px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
-        header p { color: #94a3b8; font-size: 14px; }
+        body { background-color: #0b0f19; color: #ffffff; padding: 20px; position: relative; }
+        
+        /* الهيدر وعناصر التحكم */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #1e293b; }
+        header h1 { color: #38bdf8; font-size: 22px; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        
+        .menu-btn { background: none; border: none; color: #38bdf8; font-size: 28px; cursor: pointer; }
+
+        /* القائمة الجانبية */
+        .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0f172a; border-left: 1px solid #1e293b; box-shadow: -5px 0 15px rgba(0,0,0,0.5); z-index: 1000; transition: 0.3s; padding: 20px; }
+        .sidebar.open { right: 0; }
+        .sidebar .close-btn { background: none; border: none; color: #f43f5e; font-size: 24px; float: left; cursor: pointer; }
+        .sidebar h2 { margin-top: 20px; color: #fff; font-size: 20px; margin-bottom: 30px; border-bottom: 2px solid #38bdf8; padding-bottom: 10px; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 20px; }
+        .sidebar-menu li a { color: #94a3b8; text-decoration: none; font-size: 16px; display: block; padding: 10px; border-radius: 8px; transition: 0.2s; }
+        .sidebar-menu li a:hover { background: #1e293b; color: #38bdf8; }
+
+        /* حاوية الأقسام الرئيسية */
         .container { max-width: 800px; margin: 0 auto; padding: 20px 0; }
-        .section-title { color: #f43f5e; margin: 30px 0 15px 0; font-size: 20px; border-right: 4px solid #f43f5e; padding-right: 10px; font-weight: bold; }
+        
+        /* تقسيم الأقسام كمربعات رئيسية */
+        .main-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
+        .cat-box { background: linear-gradient(135deg, #1e293b, #0f172a); border: 1px solid #334155; padding: 25px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .cat-box:hover { border-color: #38bdf8; transform: scale(1.02); }
+        .cat-box .icon { font-size: 35px; margin-bottom: 10px; display: block; }
+        .cat-box h2 { font-size: 16px; color: #e2e8f0; }
+
+        /* أقسام المنتجات (مخفية وتظهر عند الضغط) */
+        .section-products { display: none; margin-top: 20px; }
+        .section-products.active { display: block; }
+        .section-title { color: #f43f5e; margin: 20px 0 15px 0; font-size: 18px; border-right: 4px solid #f43f5e; padding-right: 10px; font-weight: bold; }
+        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 15px; text-align: center; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { border-color: #38bdf8; transform: translateY(-3px); }
-        .card img { width: 50px; height: 50px; margin: 0 auto 10px auto; }
-        .card h3 { font-size: 15px; margin-bottom: 5px; color: #e2e8f0; }
-        .card .price { color: #10b981; font-weight: bold; font-size: 16px; margin-bottom: 12px; }
-        .id-input { padding: 8px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; margin-bottom: 10px; width: 100%; font-size: 13px; }
-        .id-input:focus { border-color: #38bdf8; outline: none; }
-        .btn { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 10px; border-radius: 6px; font-weight: bold; font-size: 13px; transition: 0.2s; cursor: pointer; border: none; width: 100%; }
-        .btn:hover { background: #128c7e; }
-        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #1e293b; color: #64748b; font-size: 12px; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { font-size: 14px; margin-bottom: 5px; color: #e2e8f0; }
+        .card .price { color: #10b981; font-weight: bold; font-size: 15px; margin-bottom: 12px; }
+        
+        .id-input { padding: 8px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; text-align: center; margin-bottom: 10px; width: 100%; font-size: 12px; }
+        .btn { display: block; background: #25d366; color: #fff; text-decoration: none; padding: 10px; border-radius: 6px; font-weight: bold; font-size: 12px; border: none; width: 100%; cursor: pointer; }
+
+        /* النافذة المنبثقة لإضافة الرصيد والمحافظ */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal.open { display: flex; }
+        .modal-content { background: #1e293b; border: 1px solid #475569; padding: 25px; border-radius: 16px; width: 100%; max-width: 450px; text-align: center; position: relative; }
+        .modal-content h3 { color: #38bdf8; margin-bottom: 20px; font-size: 18px; }
+        
+        .wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .wallet-item { background: #0f172a; border: 1px solid #334155; padding: 15px; border-radius: 10px; font-size: 14px; color: #e2e8f0; cursor: pointer; font-weight: bold; }
+        .wallet-item:hover { border-color: #10b981; background: #111827; }
+        .close-modal { position: absolute; top: 15px; left: 15px; background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer; }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #1e293b; color: #64748b; font-size: 11px; }
     </style>
 </head>
 <body>
 
+<!-- القائمة الجانبية -->
+<div id="mySidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+    <h2>أحمد تك للألعاب</h2>
+    <ul class="sidebar-menu">
+        <li><a href="#" onclick="openModal('login')">👤 تسجيل الدخول بجوجل</a></li>
+        <li><a href="#" onclick="openModal('deposit')">💰 إضافة رصيد بالعملة اليمنية</a></li>
+        <li><a href="https://wa.me/967770000000" target="_blank">📞 الدعم الفني مباشر</a></li>
+    </ul>
+</div>
+
 <header>
     <h1>أحمد تك - Ahmed Tech</h1>
-    <p>أسرع وأضمن منصة لشحن عملات وتطبيقات الدردشة في اليمن</p>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 </header>
 
 <div class="container">
     
-    <!-- قسم تيك توك -->
-    <div class="section-title">شحن تيك توك (TikTok)</div>
-    <div class="grid">
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="coin">
-            <h3>100 عملة</h3>
-            <div class="price">1.5$</div>
-            <input type="text" id="id_tt_100" class="id-input" placeholder="اكتب الـ ID هنا">
-            <button class="btn" onclick="sendOrder('تيك توك - 100 عملة', '1.5$', 'id_tt_100')">اشحن الآن</button>
+    <!-- المربعات الرئيسية للأقسام -->
+    <div class="main-categories">
+        <div class="cat-box" onclick="showSection('games')">
+            <span class="icon">🎮</span>
+            <h2>قسم الألعاب والشحن</h2>
         </div>
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/3046/3046124.png" alt="coin">
-            <h3>500 عملة</h3>
-            <div class="price">7.0$</div>
-            <input type="text" id="id_tt_500" class="id-input" placeholder="اكتب الـ ID هنا">
-            <button class="btn" onclick="sendOrder('تيك توك - 500 عملة', '7.0$', 'id_tt_500')">اشحن الآن</button>
+        <div class="cat-box" onclick="showSection('chat')">
+            <span class="icon">💬</span>
+            <h2>برامج الصوت والدردشة</h2>
         </div>
     </div>
 
-    <!-- قسم تطبيق لايكي -->
-    <div class="section-title">شحن لايكي (Likee)</div>
-    <div class="grid">
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/2489/2489623.png" alt="diamond">
-            <h3>50 ماسة</h3>
-            <div class="price">1.0$</div>
-            <input type="text" id="id_lk_50" class="id-input" placeholder="اكتب الـ ID هنا">
-            <button class="btn" onclick="sendOrder('لايكي - 50 ماسة', '1.0$', 'id_lk_50')">اشحن الآن</button>
-        </div>
-        <div class="card">
-            <img src="https://cdn-icons-png.flaticon.com/512/2489/2489623.png" alt="diamond">
-            <h3>250 ماسة</h3>
-            <div class="price">4.5$</div>
-            <input type="text" id="id_lk_250" class="id-input" placeholder="اكتب الـ ID هنا">
-            <button class="btn" onclick="sendOrder('لايكي - 250 ماسة', '4.5$', 'id_lk_250')">اشحن الآن</button>
+    <!-- قسم الألعاب (مخفي الافتراضي) -->
+    <div id="games-section" class="section-products">
+        <div class="section-title">🎮 شحن الألعاب العالمية</div>
+        <div class="grid">
+            <div class="card">
+                <h3>ببجي (60 شدة)</h3>
+                <div class="price">1.2$</div>
+                <input type="text" id="id_pubg_60" class="id-input" placeholder="اكتب الـ ID هنا">
+                <button class="btn" onclick="sendOrder('ببجي - 60 شدة', '1.2$', 'id_pubg_60')">اشحن الآن</button>
+            </div>
+            <div class="card">
+                <h3>فري فاير (100 جوهرة)</h3>
+                <div class="price">1.0$</div>
+                <input type="text" id="id_ff_100" class="id-input" placeholder="اكتب الـ ID هنا">
+                <button class="btn" onclick="sendOrder('فري فاير - 100 جوهرة', '1.0$', 'id_ff_100')">اشحن الآن</button>
+            </div>
         </div>
     </div>
 
+    <!-- قسم برامج الدردشة (مخفي الافتراضي) -->
+    <div id="chat-section" class="section-products">
+        <div class="section-title">💬 شحن تطبيقات الدردشة</div>
+        <div class="grid">
+            <div class="card">
+                <h3>تيك توك (100 عملة)</h3>
+                <div class="price">1.5$</div>
+                <input type="text" id="id_tt_100" class="id-input" placeholder="اكتب الـ ID هنا">
+                <button class="btn" onclick="sendOrder('تيك توك - 100 عملة', '1.5$', 'id_tt_100')">اشحن الآن</button>
+            </div>
+            <div class="card">
+                <h3>لايكي (50 ماسة)</h3>
+                <div class="price">1.0$</div>
+                <input type="text" id="id_lk_50" class="id-input" placeholder="اكتب الـ ID هنا">
+                <button class="btn" onclick="sendOrder('لايكي - 50 ماسة', '1.0$', 'id_lk_50')">اشحن الآن</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- نافذة منبثقة (Modal) لإضافة الرصيد / تسجيل الدخول -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+        <div id="modal-body-content">
+            <!-- سيتم تغيير المحتوى هنا عبر الجافاسكريبت -->
+        </div>
+    </div>
 </div>
 
 <footer>
@@ -79,27 +148,70 @@
 </footer>
 
 <script>
+    // فتح وإغلاق القائمة الجانبية
+    function toggleSidebar() {
+        var sidebar = document.getElementById("mySidebar");
+        if (sidebar.classList.contains("open")) {
+            sidebar.classList.remove("open");
+        } else {
+            sidebar.classList.add("open");
+        }
+    }
+
+    // إظهار القسم المطلوب عند الضغط على المربعات
+    function showSection(sectionId) {
+        document.getElementById("games-section").classList.remove("active");
+        document.getElementById("chat-section").classList.remove("active");
+        
+        if(sectionId === 'games') {
+            document.getElementById("games-section").classList.add("active");
+        } else if(sectionId === 'chat') {
+            document.getElementById("chat-section").classList.add("active");
+        }
+    }
+
+    // فتح النافذة المنبثقة بحسب نوع الضغطة
+    function openModal(type) {
+        toggleSidebar(); // إغلاق القائمة الجانبية أولاً
+        var modal = document.getElementById("myModal");
+        var content = document.getElementById("modal-body-content");
+        
+        if (type === 'deposit') {
+            content.innerHTML = "<h3>💰 شحن الرصيد بالعملة اليمنية</h3>" +
+                                "<p style='font-size:13px; color:#94a3b8; margin-bottom:15px;'>اختر محفظتك المحلية المفضلة لإرسال الحوالة وتغذية حسابك:</p>" +
+                                "<div class='wallet-grid'>" +
+                                "<div class='wallet-item' onclick='selectWallet(\"جوال الكريمي\")'>🏦 جوال الكريمي</div>" +
+                                "<div class='wallet-item' onclick='selectWallet(\"محفظة جيب - Jeeb\")'>📱 محفظة جيب</div>" +
+                                "<div class='wallet-item' onclick='selectWallet(\"ون كاش - One Cash\")'>💳 ون كاش</div>" +
+                                "<div class='wallet-item' onclick='selectWallet(\"حوالة محلية النجم/الامتياز\")'>📦 حوالات محلية</div>" +
+                                "</div>";
+        } else if (type === 'login') {
+            content.innerHTML = "<h3>👤 تسجيل الدخول للحساب</h3>" +
+                                "<p style='font-size:13px; color:#94a3b8; margin-bottom:20px;'>ميزة التحقق التلقائي برسائل جوجل قيد التطوير البرمجي حالياً.</p>" +
+                                "<button class='btn' style='background:#ea4335;' onclick='alert(\"هذه الميزة تجريبية للواجهة فقط، وتحتاج لربط سيرفر حقيقي.\")'>الدخول الفوري التجريبي بجوجل</button>";
+        }
+        modal.classList.add("open");
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").classList.remove("open");
+    }
+
+    function selectWallet(walletName) {
+        alert("لقد اخترت الدفع عبر: " + walletName + "\n\nسيتم توجيهك الآن للواتساب لتأكيد إرسال الحوالة يدوياً وتفعيل رصيدك.");
+        window.open("https://wa.me/967770000000?text=" + encodeURIComponent("مرحباً أحمد تك، أريد تفعيل رصيد في الموقع عبر: " + walletName), '_blank');
+    }
+
+    // إرسال الطلب للواتساب
     function sendOrder(packageName, price, inputId) {
         var userID = document.getElementById(inputId).value.trim();
-        
         if (userID === "") {
             alert("من فضلك اكتب الـ ID الخاص بحسابك أولاً!");
             return;
         }
-        
-        // تعديل الرقم: ضع رقمك الخاص بالصيغة الدولية وبدون أصفار أو علامة +
-        var myPhoneNumber = "‎+967734452305"; 
-        
-        var message = "مرحباً أحمد تك، أريد طلب شحن:\n\n" +
-                      "📦 الباقة: " + packageName + "\n" +
-                      "💰 السعر: " + price + "\n" +
-                      "🆔 حساب الـ ID: " + userID + "\n\n" +
-                      "يرجى تزويدي بطرق الدفع المتاحة للشحن الفوري.";
-                      
-        var encodedMessage = encodeURIComponent(message);
-        var whatsappURL = "https://wa.me/" + myPhoneNumber + "?text=" + encodedMessage;
-        
-        window.open(whatsappURL, '_blank');
+        var myPhoneNumber = "967770000000"; // غيّر الرقم هنا برقمك الحقيقي
+        var message = "مرحباً أحمد تك، أريد طلب شحن:\n\n📦 الباقة: " + packageName + "\n💰 السعر: " + price + "\n🆔 حساب الـ ID: " + userID;
+        window.open("https://wa.me/" + myPhoneNumber + "?text=" + encodeURIComponent(message), '_blank');
     }
 </script>
 
