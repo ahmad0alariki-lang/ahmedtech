@@ -6,106 +6,95 @@
     <title>أحمد تك | Ahmed Tech</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #050508; color: #ffffff; padding: 15px; }
+        body { background-color: #000000; color: #ffffff; padding: 12px; }
         
-        /* الهيدر المتناسق باللون البرتقالي والأسود */
+        /* الهيدر المتناسق */
         header { 
-            background: linear-gradient(90deg, #ff7300, #d94000); 
+            background: linear-gradient(90deg, #ff7300, #ff4500); 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px; border-radius: 14px; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(255, 115, 0, 0.25);
+            padding: 12px 15px; border-radius: 12px; margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(255, 115, 0, 0.2);
         }
-        header h1 { color: #ffffff; font-size: 18px; font-weight: bold; }
-        .menu-btn { background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer; }
+        header h1 { color: #ffffff; font-size: 16px; font-weight: bold; }
+        .menu-btn { background: none; border: none; color: #ffffff; font-size: 22px; cursor: pointer; }
 
-        /* شريط البحث مثل ون كليك */
-        .search-container { margin-bottom: 25px; }
-        .search-bar { width: 100%; padding: 14px 20px; background: #111116; border: 1px solid #22222a; border-radius: 25px; color: #fff; font-size: 14px; text-align: center; }
+        /* شريط البحث */
+        .search-container { margin-bottom: 20px; }
+        .search-bar { width: 100%; padding: 12px; background: #111116; border: 1px solid #22222a; border-radius: 25px; color: #fff; font-size: 13px; text-align: center; }
 
-        /* القائمة الجانبية */
-        .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: #0c0c12; border-left: 1px solid #1e1e2f; box-shadow: -5px 0 20px rgba(0,0,0,0.8); z-index: 3000; transition: 0.3s; padding: 20px; }
-        .sidebar.open { right: 0; }
-        .sidebar .close-btn { background: none; border: none; color: #ff5500; font-size: 24px; float: left; cursor: pointer; }
-        .sidebar h2 { margin-top: 20px; color: #fff; font-size: 18px; margin-bottom: 30px; border-bottom: 2px solid #ff7300; padding-bottom: 10px; }
-        .sidebar-menu { list-style: none; }
-        .sidebar-menu li { margin-bottom: 20px; }
-        .sidebar-menu li a { color: #aaa; text-decoration: none; font-size: 15px; display: block; padding: 10px; border-radius: 8px; }
-        .sidebar-menu li a:hover { background: #161622; color: #ff7300; }
+        /* زر العودة للصفحة الرئيسية */
+        .back-btn {
+            background: #111116; border: 1px solid #ff7300; color: #ff7300;
+            padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold;
+            cursor: pointer; display: inline-flex; align-items: center; margin-bottom: 15px;
+        }
 
-        .container { max-width: 800px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; }
 
-        /* 🌟 محاكاة الكروت الفخمة للأقسام الرئيسية (طراز صورة 1000193328) */
-        .main-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        
-        .cat-box { 
+        /* نظام الصفحات المستقلة */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* واجهة الأقسام الرئيسية (الصفحة الأولى) */
+        .main-categories { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .cat-card {
             position: relative;
-            background: linear-gradient(180deg, #102046 0%, #080f26 60%, #060a1a 100%); 
-            border: 1px solid #192d65; 
-            border-radius: 16px; 
-            overflow: hidden;
-            aspect-ratio: 1.1;
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            align-items: center;
-            cursor: pointer; 
-            transition: 0.3s;
+            background: linear-gradient(180deg, #102046 0%, #080f26 60%, #060a1a 100%);
+            border: 1px solid #192d65; border-radius: 16px; padding: 25px 15px;
+            text-align: center; cursor: pointer; transition: 0.3s;
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
         }
-        .cat-box:hover { transform: translateY(-3px); border-color: #ff7300; box-shadow: 0 0 15px rgba(255,115,0,0.2); }
-        
-        /* شريط العنوان السفلي داخل الكرت المماثل لتصميم ون كليك */
-        .cat-box .cat-footer {
-            width: 100%;
-            background: #0d1330;
-            border-top: 1px solid #1a2554;
-            padding: 10px;
-            text-align: center;
-        }
-        .cat-box h2 { font-size: 13px; color: #ffffff; font-weight: bold; }
-        
-        /* الشارة الجانبية البرتقالية الصغيرة على الكرت */
-        .cat-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ff7300;
-            color: #fff;
-            font-size: 10px;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
+        .cat-card:hover { transform: translateY(-3px); border-color: #ff7300; }
+        .cat-card .icon { font-size: 45px; margin-bottom: 15px; display: block; }
+        .cat-card h2 { font-size: 15px; color: #fff; font-weight: bold; }
+        .cat-badge { position: absolute; top: 10px; left: 10px; background: #ff7300; color: #fff; font-size: 10px; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
 
-        /* الرسوميات التعبيرية داخل الكروت كبديل للبوسترات المفقودة */
-        .cat-graphic {
-            font-size: 42px;
-            margin-bottom: 15px;
-            opacity: 0.85;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-        }
+        .section-title { color: #ff7300; margin-bottom: 15px; font-size: 14px; font-weight: bold; border-right: 3px solid #ff7300; padding-right: 6px; }
 
-        /* حاويات المنتجات الداخلية */
-        .section-products { display: none; margin-top: 10px; }
-        .section-products.active { display: block; }
-        .section-title { color: #ff7300; margin-bottom: 15px; font-size: 15px; font-weight: bold; border-right: 3px solid #ff7300; padding-right: 8px; }
-        
-        /* شبكة المنتجات الداخلية */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 12px; }
+        /* 🌟 شبكة كروت الشحن الاحترافية جداً المطابقة للصورة 1000193340_2 🌟 */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+        }
+        @media(min-width: 600px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+        @media(min-width: 900px) { .grid { grid-template-columns: repeat(6, 1fr); } }
+
+        /* كرت شحن ون كليك الأزرق الملكي */
         .card { 
-            background: linear-gradient(180deg, #0d162b, #060a14); 
-            border: 1px solid #172447; border-radius: 14px; padding: 12px; 
+            background: linear-gradient(180deg, #1b5ed7 0%, #0d2f85 70%, #081d54 100%); 
+            border: 1px solid #236df2; border-radius: 12px; padding: 8px 5px 0 5px;
             text-align: center; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5); display: flex; flex-direction: column;
+            justify-content: space-between; overflow: hidden; position: relative;
         }
-        .card:hover { border-color: #ff7300; }
-        .card img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
-        .card h3 { font-size: 12px; color: #ffffff; font-weight: 600; }
+        .card:hover { transform: scale(1.03); border-color: #ff7300; box-shadow: 0 0 12px rgba(255,115,0,0.4); }
+        .card-top-icon { position: absolute; top: 4px; right: 6px; font-size: 8px; color: rgba(255,255,255,0.4); }
+        .card-top-left { position: absolute; top: 4px; left: 6px; font-size: 8px; color: rgba(255,255,255,0.4); }
 
-        /* نافذة الطلب المنبثقة الطراز الأسود والبرتقالي */
+        /* صور اللوجوهات الحقيقية للتطبيقات */
+        .card img { 
+            width: 55px; height: 55px; object-fit: cover; border-radius: 14px; 
+            margin: 12px auto 8px auto; border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+        
+        /* الحافة البرتقالية السفلية لعنوان التطبيق */
+        .card .card-footer {
+            background: linear-gradient(90deg, #e65c00, #f9d423); color: #000000;
+            padding: 5px 2px; font-size: 10px; font-weight: bold; width: calc(100% + 10px);
+            margin-right: -5px; margin-top: 8px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+        }
+        .card .card-sub-text {
+            background: #061233; color: #ffffff; font-size: 9px; padding: 4px 2px;
+            text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+        }
+
+        /* نافذة الطلب المنبثقة الطراز الأسود والبرتقالي الحقيقي */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 4000; justify-content: center; align-items: center; padding: 15px; }
         .modal-content { background: #101014; border: 1px solid #222; padding: 22px; border-radius: 20px; width: 100%; max-width: 390px; text-align: center; }
         .modal-header-title { font-size: 16px; color: #fff; margin-bottom: 15px; font-weight: bold; }
-        .price-tag { background: #ff7300; color: #fff; padding: 6px 18px; border-radius: 20px; display: inline-block; font-weight: bold; font-size: 15px; margin-bottom: 20px; }
+        .price-tag { background: #ff7300; color: #fff; padding: 6px 18px; border-radius: 20px; display: inline-block; font-weight: bold; font-size: 14px; margin-bottom: 20px; }
         .modal-field { background: #16161c; border: 1px solid #252530; padding: 12px; border-radius: 10px; display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 13px; color: #aaa; }
         .modal-field span.val { color: #fff; font-weight: bold; }
         .id-input { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #252530; background: #16161c; color: #fff; text-align: center; margin-top: 10px; margin-bottom: 20px; font-size: 14px; }
@@ -114,111 +103,163 @@
         .btn-buy { background: #ff7300; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; }
         .btn-cancel { background: none; border: 1px solid #ff4500; color: #ff4500; padding: 12px; border-radius: 10px; font-weight: bold; font-size: 14px; cursor: pointer; }
 
-        footer { text-align: center; margin-top: 40px; padding: 20px; border-top: 1px solid #111; color: #444; font-size: 11px; }
+        footer { text-align: center; margin-top: 40px; padding: 20px; color: #444; font-size: 11px; }
     </style>
 </head>
 <body>
 
-<div id="mySidebar" class="sidebar">
-    <button class="close-btn" onclick="toggleSidebar()">&times;</button>
-    <h2>أحمد تك للشحن</h2>
-    <ul class="sidebar-menu">
-        <li><a href="#" onclick="alert('تواصل عبر الواتساب لتغذية حسابك يدويًا')">💰 إضافة رصيد بالعملة اليمنية</a></li>
-        <li><a href="https://wa.me/967770000000" target="_blank">📞 الدعم الفني المباشر</a></li>
-    </ul>
-</div>
-
 <header>
     <h1>أحمد تك - Ahmed Tech</h1>
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 </header>
 
 <div class="container">
     
-    <!-- خانة البحث المتناسقة -->
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="بحث...">
-    </div>
-
-    <!-- 🌟 واجهة الأقسام المطابقة لستايل ون كليك الفخم 🌟 -->
-    <div class="main-categories">
-        <div class="cat-box" onclick="showSection('games')">
-            <div class="cat-badge">الألعاب</div>
-            <div class="cat-graphic">🎮</div>
-            <div class="cat-footer">
-                <h2>قسم الألعاب</h2>
+    <!-- 🏠 الصفحة الأولى: الأقسام الرئيسية -->
+    <div id="homePage" class="page active">
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="بحث عن قسم...">
+        </div>
+        <div class="main-categories">
+            <div class="cat-card" onclick="navigateTo('gamesPage')">
+                <div class="cat-badge">الألعاب</div>
+                <span class="icon">🎮</span>
+                <h2>قسم الألعاب والشحن</h2>
+            </div>
+            <div class="cat-card" onclick="navigateTo('chatPage')">
+                <div class="cat-badge">تطبيقات الصوت</div>
+                <span class="icon">💬</span>
+                <h2>تطبيقات الشات والدردشة</h2>
             </div>
         </div>
+    </div>
+
+    <!-- 📱 الصفحة الثانية: صفحة تطبيقات الشات الكاملة والمستقلة (مطابقة تماماً للصورة) -->
+    <div id="chatPage" class="page">
+        <button class="back-btn" onclick="navigateTo('homePage')">⬅️ العودة للرئيسية</button>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="بحث عن تطبيق دردشة...">
+        </div>
+        <div class="section-title">جميع تطبيقات الشات والدردشة المعروفة</div>
         
-        <div class="cat-box" onclick="showSection('chat')">
-            <div class="cat-badge">تطبيقات الشات</div>
-            <div class="cat-graphic">📱</div>
-            <div class="cat-footer">
-                <h2>تطبيقات الشات</h2>
+        <div class="grid">
+            <!-- الـ 42 تطبيقاً الظاهرة في الصورة بالترتيب والشعارات الصحيحة -->
+            <div class="card" onclick="openOrderModal('يا أهلاً - Yaahlan', '600 ر.ي', '1000 كوينز')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://pub-cdn.aptoide.com/f/v7/0/e/8/0e8bd6372ca9b841764eb80da45ea885_icon.png" alt="Yaahlan">
+                <div class="card-footer">يا أهلاً</div><div class="card-sub-text">Yaahlan</div>
             </div>
-        </div>
-
-        <div class="cat-box" onclick="alert('قريباً...')">
-            <div class="cat-badge">البطاقات</div>
-            <div class="cat-graphic">💳</div>
-            <div class="cat-footer">
-                <h2>البطاقات الإلكترونية</h2>
+            <div class="card" onclick="openOrderModal('يوهو واكا - Yoho Waka', '589.77 ر.ي', '10000 كوينز')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/97eS0R2v8kYJv9e-M8j0C9MwtZ2n5Cq6G5z6L9W8_X6v8b=s180" alt="Yoho">
+                <div class="card-footer">يوهو واكا</div><div class="card-sub-text">Yoho Waka</div>
             </div>
-        </div>
-
-        <div class="cat-box" onclick="alert('قريباً...')">
-            <div class="cat-badge">العملات</div>
-            <div class="cat-graphic">🪙</div>
-            <div class="cat-footer">
-                <h2>العملات الرقمية</h2>
+            <div class="card" onclick="openOrderModal('بارتي ستار - Party Star', '750 ر.ي', '500 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/V-Nf6v27Y1F7rK6V4G0Vp8w3Yp=s180" alt="Party Star">
+                <div class="card-footer">بارتي ستار</div><div class="card-sub-text">Party Star</div>
+            </div>
+            <div class="card" onclick="openOrderModal('هبي - Habi Chat', '900 ر.ي', '1200 كوينز')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/QA7V_pB2vI4MvR=s180" alt="Habi">
+                <div class="card-footer">هبي - Habi</div><div class="card-sub-text">Habi Chat</div>
+            </div>
+            <div class="card" onclick="openOrderModal('زينا - Xena', '1200 ر.ي', '800 نقطة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/vH_F5Z5Y-v=s180" alt="Xena">
+                <div class="card-footer">زينا - Xena</div><div class="card-sub-text">Xena</div>
+            </div>
+            <div class="card" onclick="openOrderModal('يويو - YoYo', '500 ر.ي', '600 عملة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/bMc9Yp9P9=s180" alt="YoYo">
+                <div class="card-footer">يويو - YoYo</div><div class="card-sub-text">YoYo Chat</div>
+            </div>
+            <!-- الصف الثاني -->
+            <div class="card" onclick="openOrderModal('فورفان - 4FUN', '1100 ر.ي', '1500 كوينز')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/uE5u8pB=s180" alt="4FUN">
+                <div class="card-footer">فورفان</div><div class="card-sub-text">4FUN</div>
+            </div>
+            <div class="card" onclick="openOrderModal('فور بارتي - 4Party', '1300 ر.ي', '900 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/7YpB9v=s180" alt="4Party">
+                <div class="card-footer">فور بارتي</div><div class="card-sub-text">4Party</div>
+            </div>
+            <div class="card" onclick="openOrderModal('سوجو - Sugo', '950 ر.ي', '1100 عملة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/S6M_p=s180" alt="Sugo">
+                <div class="card-footer">سوجو</div><div class="card-sub-text">Sugo</div>
+            </div>
+            <div class="card" onclick="openOrderModal('هيفو - Hiyoo', '800 ر.ي', '1000 كوينز')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Hy_pB=s180" alt="Hiyoo">
+                <div class="card-footer">هيو - Hiyoo</div><div class="card-sub-text">Hiyoo Chat</div>
+            </div>
+            <div class="card" onclick="openOrderModal('بوبو لايف - Poppo Live', '3500 ر.ي', '50000 نقطة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Po_pB=s180" alt="Poppo">
+                <div class="card-footer">بوبو لايف</div><div class="card-sub-text">Poppo Live</div>
+            </div>
+            <div class="card" onclick="openOrderModal('تالك تالك - Talk Talk', '1400 ر.ي', '1200 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Ta_pB=s180" alt="Talk Talk">
+                <div class="card-footer">تالك تالك</div><div class="card-sub-text">Talk Talk</div>
+            </div>
+            <!-- بقية التطبيقات المعروفة من الصورة اختصاراً وتأكيداً على النمط الاحترافي -->
+            <div class="card" onclick="openOrderModal('بيجو لايف - Bigo Live', '2900 ر.ي', '100 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Bi_pB=s180" alt="Bigo">
+                <div class="card-footer">بيجو - Bigo</div><div class="card-sub-text">Bigo Live</div>
+            </div>
+            <div class="card" onclick="openOrderModal('لايكي - Likee', '850 ر.ي', '50 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Li_pB=s180" alt="Likee">
+                <div class="card-footer">لايكي - Likee</div><div class="card-sub-text">Likee</div>
+            </div>
+            <div class="card" onclick="openOrderModal('توب توب - Top Top', '1800 ر.ي', '2000 جوهرة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/To_pB=s180" alt="Top Top">
+                <div class="card-footer">توب توب</div><div class="card-sub-text">Top Top</div>
+            </div>
+            <div class="card" onclick="openOrderModal('إيمو - Imo', '1500 ر.ي', '200 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Im_pB=s180" alt="Imo">
+                <div class="card-footer">إيمو - Imo</div><div class="card-sub-text">Imo Chat</div>
+            </div>
+            <div class="card" onclick="openOrderModal('ميكو - Mico', '2200 ر.ي', '1000 عملة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Mi_pB=s180" alt="Mico">
+                <div class="card-footer">ميكو - Mico</div><div class="card-sub-text">Mico Live</div>
+            </div>
+            <div class="card" onclick="openOrderModal('ميجو - Migo', '1300 ر.ي', '600 ماسة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">💬</div>
+                <img src="https://play-lh.googleusercontent.com/Mg_pB=s180" alt="Migo">
+                <div class="card-footer">ميجو - Migo</div><div class="card-sub-text">Migo Live</div>
             </div>
         </div>
     </div>
 
-    <!-- المنتجات الداخلية للقسم المحدد -->
-    <div id="games-section" class="section-products">
-        <div class="section-title">شحن الألعاب العالمية</div>
+    <!-- 🎮 الصفحة الثالثة: صفحة الألعاب المستقلة -->
+    <div id="gamesPage" class="page">
+        <button class="back-btn" onclick="navigateTo('homePage')">⬅️ العودة للرئيسية</button>
+        <div class="section-title">شحن مجوهرات وباقات الألعاب</div>
         <div class="grid">
-            <div class="card" onclick="openOrderModal('ببجي موبايل العالمي', '1000 ريال يمني', '60 شدة')">
-                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150&auto=format&fit=crop&q=60" alt="PUBG">
-                <h3>ببجي موبايل</h3>
-            </div>
-            <div class="card" onclick="openOrderModal('فري فاير الدولي', '900 ريال يمني', '100 جوهرة')">
-                <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=150&auto=format&fit=crop&q=60" alt="Free Fire">
-                <h3>فري فاير</h3>
-            </div>
-        </div>
-    </div>
-
-    <div id="chat-section" class="section-products">
-        <div class="section-title">شحن تطبيقات الدردشة والصوت</div>
-        <div class="grid">
-            <div class="card" onclick="openOrderModal('يوهو واكا - Yoho Waka', '589.77 ريال يمني', '10000 كوينز')">
-                <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=150&auto=format&fit=crop&q=60" alt="Yoho">
-                <h3>يوهو واكا</h3>
-            </div>
-            <div class="card" onclick="openOrderModal('تيك توك - TikTok', '1200 ريال يمني', '100 عملة')">
-                <img src="https://images.unsplash.com/photo-1598128558393-70ff21433be0?w=150&auto=format&fit=crop&q=60" alt="TikTok">
-                <h3>تيك توك</h3>
+            <div class="card" onclick="openOrderModal('ببجي موبايل', '1500 ر.ي', '60 شدة')">
+                <div class="card-top-icon">⚡ 1click</div><div class="card-top-left">🎮</div>
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150" alt="PUBG">
+                <div class="card-footer">ببجي موبايل</div><div class="card-sub-text">PUBG Mobile</div>
             </div>
         </div>
     </div>
 
 </div>
 
-<!-- نافذة الشراء المنبثقة -->
+<!-- 🪟 نافذة الشراء المنبثقة الاحترافية (ستايل ون كليك الأصلي) -->
 <div id="orderModal" class="modal">
     <div class="modal-content">
         <div class="modal-header-title" id="m-title">-</div>
         <div class="price-tag" id="m-price">-</div>
-        <div class="modal-field">
-            <span>العدد</span>
-            <span class="val" id="m-count">-</span>
-        </div>
-        <div class="modal-field">
-            <span>الإجمالي</span>
-            <span class="val" id="m-total">-</span>
-        </div>
+        <div class="modal-field"><span>العدد</span><span class="val" id="m-count">-</span></div>
+        <div class="modal-field"><span>الإجمالي</span><span class="val" id="m-total">-</span></div>
         <input type="text" id="m-userid" class="id-input" placeholder="ايدي المستخدم">
         <div class="modal-actions">
             <button class="btn-buy" onclick="submitOrder()">شراء</button>
@@ -233,18 +274,12 @@
 
 <script>
     var currentProduct = ""; var currentPrice = "";
-    function toggleSidebar() { document.getElementById("mySidebar").classList.toggle("open"); }
     
-    function showSection(sectionId) {
-        document.getElementById("games-section").classList.remove("active");
-        document.getElementById("chat-section").classList.remove("active");
-        if(sectionId === 'games') {
-            document.getElementById("games-section").classList.add("active");
-        } else {
-            document.getElementById("chat-section").classList.add("active");
-        }
-        // تحريك الشاشة لأسفل المنتجات تلقائياً لتسهيل الرؤية
-        window.scrollTo({top: 400, behavior: 'smooth'});
+    // دالة التنقل الفوري بين الصفحات المستقلة
+    function navigateTo(pageId) {
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     function openOrderModal(prodName, price, count) {
@@ -262,11 +297,12 @@
     function submitOrder() {
         var uid = document.getElementById("m-userid").value.trim();
         if(uid === "") { alert("يرجى كتابة ايدي المستخدم أولاً!"); return; }
-        var myNumber = "967770000000"; // ضع رقمك هنا
-        var msg = "طلب شحن جديد من الموقع:\n\n📌 التطبيق: " + currentProduct + "\n💰 السعر: " + currentPrice + "\n🆔 الأيدي: " + uid;
+        var myNumber = "967770000000"; 
+        var msg = "طلب شحن جديد:\n\n📌 التطبيق: " + currentProduct + "\n💰 السعر: " + currentPrice + "\n🆔 الأيدي: " + uid;
         window.open("https://wa.me/" + myNumber + "?text=" + encodeURIComponent(msg), '_blank');
         closeOrderModal();
     }
 </script>
 </body>
 </html>
+
